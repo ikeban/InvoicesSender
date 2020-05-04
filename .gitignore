@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# exclude everything
+invoices/*
+
+# exception to the rule
+!invoices/HERE_PUT_YOUR_INVOICES.txt
