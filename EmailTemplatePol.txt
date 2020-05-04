@@ -1,0 +1,6 @@
+[TITLE]
+
+W załączniku faktura za [MONTH].
+
+Z poważaniem,
+[SIGNATURE]

@@ -1,0 +1,6 @@
+[TITLE]
+
+In the attachment, there is an invoice for [MONTH].
+
+Best regards,
+[SIGNATURE]
