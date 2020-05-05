@@ -1,4 +1,4 @@
-from TemplateParser import TemplateParser
+from code.TemplateParser import TemplateParser
 from unittest.mock import MagicMock
 
 def test_can_create_TemplateParser():

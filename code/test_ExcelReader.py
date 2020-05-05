@@ -1,4 +1,4 @@
-from ExcelReader import ExcelReader
+from code.ExcelReader import ExcelReader
 from unittest.mock import MagicMock
 
 def test_can_create_ExcelReader():
