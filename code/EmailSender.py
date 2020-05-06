@@ -8,9 +8,11 @@ from os.path import basename
 
 class EmailSender:
     """ Helper class to send email """
-    def __init__(self, ownerEmail, ownerPassword):
+    def __init__(self, smtpAddress, smtpPort, ownerEmail, ownerPassword):
+        if ownerPassword == None or ownerPassword is "":
+            ownerPassword = input("Insert Password or App Password for " + ownerEmail + " :")
         self._ownerEmail = ownerEmail
-        self._smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+        self._smtpObj = smtplib.SMTP(smtpAddress, smtpPort)
         self._smtpObj.ehlo()
         self._smtpObj.starttls()
         self._smtpObj.login(ownerEmail, ownerPassword)

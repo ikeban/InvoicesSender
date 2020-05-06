@@ -2,7 +2,7 @@ import code.PdfReader as PdfReaderModule
 import code.ExcelReader as ExcelReader
 import code.TemplateParser as TemplateParser
 import code.PdfAnalyzer as PdfAnalyzer
-
+import code.EmailSender as EmailSender
 
 def getFileContent(fileName):
     read_data = ""
@@ -42,8 +42,6 @@ def main():
         emailFilledTemplate = templateParser.getFilledTemplate()
 
         emailContentAttachmentList.append( (emailAddress, emailSubject, emailFilledTemplate, invoicesToAttach, messageId) )
-        
-    
 
 
     print("What will be sent:")
@@ -54,7 +52,18 @@ def main():
     pdfAnalyzer.dropStatistics()
     input("Press Enter to send emails.. (close window with script to CANCEL)")
     print("Sending emails...")
-    
+
+    (smtpAddress, smtpPort, ownerEmail, ownerPassword) = excelSmtpData
+    emailSender = EmailSender.EmailSender(smtpAddress, smtpPort, ownerEmail, ownerPassword)
+    for (emailAddress, emailSubject, emailFilledTemplate, invoicesToAttach, messageId) in emailContentAttachmentList:
+        if messageId == None or messageId == "":
+            emailSender.sendEmail(emailAddress, emailSubject, emailFilledTemplate, invoicesToAttach)
+            print("Sent an email to " + emailAddress + " with " + str(invoicesToAttach))
+        else:
+            emailSender.replayEmail(emailAddress, emailSubject, emailFilledTemplate, invoicesToAttach, messageId)
+            print("Sent response to " + emailAddress + " with " + str(invoicesToAttach))
+        
+    emailSender.close()
 
 if __name__ == '__main__':
     main()
