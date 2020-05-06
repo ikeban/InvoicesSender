@@ -8,4 +8,4 @@ def test_can_create_ExcelReader():
     data = excelParser.getData()
     assert data is not None
 
-    print("data is" + str(data))
+    print("\ndata is" + str(data))
