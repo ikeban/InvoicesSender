@@ -17,6 +17,7 @@ def main():
     print("Parsing excel...")
     excelReader = ExcelReader.ExcelReader()
     excelContent = excelReader.getData()
+    excelSmtpData = excelReader.getSmtpData()
     
     print("Parsing pdf...")
     pdfReader = PdfReaderModule.PdfReader()
@@ -27,7 +28,7 @@ def main():
 
     emailContentAttachmentList = []
 
-    for (invoiceText, emailAddress, templateName, keyWordMap) in excelContent:
+    for (invoiceText, emailAddress, templateName, keyWordMap, emailSubject, messageId) in excelContent:
         invoicesToAttach = pdfAnalyzer.searchSentenceAndUpdateStats(invoiceText)
         if len(invoicesToAttach) == 0:
             print("No invoices for: " + emailAddress + " SKIPPING!")
@@ -40,19 +41,20 @@ def main():
         templateParser = TemplateParser.TemplateParser(templateContent, keyWordMap)
         emailFilledTemplate = templateParser.getFilledTemplate()
 
-        emailContentAttachmentList.append( (emailAddress, emailFilledTemplate, invoicesToAttach) )
+        emailContentAttachmentList.append( (emailAddress, emailSubject, emailFilledTemplate, invoicesToAttach, messageId) )
         
     
 
 
     print("What will be sent:")
-    for (emailAddress, emailFilledTemplate, invoicesToAttach) in emailContentAttachmentList:
+    for (emailAddress, emailSubject, emailFilledTemplate, invoicesToAttach, messageId) in emailContentAttachmentList:
         print("To " + emailAddress + " will be send " + str(invoicesToAttach))
     
     print("Checking if all PDFs can be delivered:")
     pdfAnalyzer.dropStatistics()
     input("Press Enter to send emails.. (close window with script to CANCEL)")
-    print("Sending emails")
+    print("Sending emails...")
+    
 
 if __name__ == '__main__':
     main()
