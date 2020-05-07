@@ -46,7 +46,7 @@ def main():
 
     print("What will be sent:")
     for (emailAddress, emailSubject, emailFilledTemplate, invoicesToAttach, messageId) in emailContentAttachmentList:
-        print("To " + emailAddress + " will be send " + str(invoicesToAttach) + " conent: " + emailFilledTemplate)
+        print("To " + emailAddress + " will be send " + str(invoicesToAttach))
     
     print("Checking if all PDFs can be delivered:")
     pdfAnalyzer.dropStatistics()
