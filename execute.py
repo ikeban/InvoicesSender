@@ -6,7 +6,7 @@ import code.EmailSender as EmailSender
 
 def getFileContent(fileName):
     read_data = ""
-    with open(fileName) as f:
+    with open(fileName, encoding="utf-8") as f:
         read_data = f.read()
     return read_data
 
@@ -46,7 +46,7 @@ def main():
 
     print("What will be sent:")
     for (emailAddress, emailSubject, emailFilledTemplate, invoicesToAttach, messageId) in emailContentAttachmentList:
-        print("To " + emailAddress + " will be send " + str(invoicesToAttach))
+        print("To " + emailAddress + " will be send " + str(invoicesToAttach) + " conent: " + emailFilledTemplate)
     
     print("Checking if all PDFs can be delivered:")
     pdfAnalyzer.dropStatistics()
